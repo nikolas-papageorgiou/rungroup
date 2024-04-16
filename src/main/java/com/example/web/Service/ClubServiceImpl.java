@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.web.mapper.ClubMapper.mapToClub;
+import static com.example.web.mapper.ClubMapper.mapToClubDto;
+
 @Service
 public class ClubServiceImpl implements ClubService{
 
@@ -25,7 +28,8 @@ public class ClubServiceImpl implements ClubService{
     }
 
     @Override
-    public Club saveClub(Club club) {
+    public Club saveClub(ClubDto clubDto) {
+        Club club = mapToClub(clubDto);
         return clubRepository.save(club);
     }
 
@@ -41,25 +45,17 @@ public class ClubServiceImpl implements ClubService{
         clubRepository.save(club);
     }
 
+    @Override
+    public void delete(Integer clubId) {
+        clubRepository.deleteById(clubId);
+    }
 
-    private Club mapToClub(ClubDto club){
-        Club clubDto = Club.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .photoUrl(club.getPhotoUrl())
-                .content(club.getContent())
-                .build();
-        return clubDto;
+    @Override
+    public List<ClubDto> searchClub(String query) {
+        List<Club> clubs = clubRepository.searchClubs(query);
+        return clubs.stream().map(club -> mapToClubDto(club)).collect(Collectors.toList());
     }
-    private ClubDto mapToClubDto(Club club){
-        ClubDto clubDto = ClubDto.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .photoUrl(club.getPhotoUrl())
-                .content(club.getContent())
-                .createdOn(club.getCreatedOn())
-                .updatedOn(club.getUpdatedOn())
-                .build();
-        return clubDto;
-    }
+
+
+
 }

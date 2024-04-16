@@ -23,18 +23,41 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" th:field="*{title}" id="title" placeholder="Title">
+                        <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{title}"
+                                name="title"
+                                id="title"
+                                placeholder="Title">
+                        <p th:if="@{#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="photouurl">Photourl</label>
-                        <input type="text" class="form-control" th:field="*{photoUrl}" id="photouurl" placeholder="PhotoUrl">
+                        <label for="photoUrl">Photourl</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{photoUrl}"
+                                id="photoUrl"
+                                name="photoUrl"
+                                placeholder="PhotoUrl">
+                        <p th:if="@{#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+
                     </div>
 
 
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <input type="text" class="form-control" th:field="*{content}"id="content" placeholder="Content">
+                        <input
+                                type="text"
+                                class="form-control"
+                                th:field="*{content}"
+                                id="content"
+                                name="content"
+                                placeholder="Content">
+                        <p th:if="@{#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></p>
+
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create</button>
